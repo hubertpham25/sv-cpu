@@ -16,5 +16,4 @@ module ALU_tb;
         instr.opcode = packages::ADD; #5;
         $display("alu result = %d (expected 3)", result);
     end
-
 endmodule
