@@ -1,19 +1,15 @@
-typedef enum {ADD, SUB, OP_AND, OP_OR, OP_XOR} opcode;
-
 module ALU(
-    input logic[31:0] input_a,
-    input logic[31:0] input_b,
-    input opcode opcode_t,
+    input packages::instructions_t instr,
     output logic [31:0] result,
     output logic zero_fg
 );
     always_comb begin
-        case (opcode_t)
-            ADD: result = input_a + input_b;
-            SUB: result = input_a - input_b;
-            OP_AND: result = input_a & input_b;
-            OP_OR: result = input_a | input_b;
-            OP_XOR: result = (input_a | input_b) & ~(input_a & input_b);
+        case (instr.opcode)
+            packages::ADD: result = instr.a + instr.b;
+            packages::SUB: result = instr.a - instr.b;
+            packages::OP_AND: result = instr.a & instr.b;
+            packages::OP_OR: result = instr.a | instr.b;
+            packages::OP_XOR: result = (instr.a | instr.b) & ~(instr.a & instr.b);
             default: result = 0;
         endcase
     end
