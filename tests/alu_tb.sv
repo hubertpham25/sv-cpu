@@ -1,4 +1,4 @@
-import packages::*:;
+import packages::*;
 module ALU_tb;
     packages::instructions_t instr;
     logic[31:0] result;
@@ -11,8 +11,10 @@ module ALU_tb;
     );
 
     initial begin
-        instr.a <= 2; #5
-        instr.b <= 1; #5
+        instr.a = 2;
+        instr.b = 1;
+        instr.opcode = packages::ADD; #5;
+        $display("alu result = %d (expected 3)", result);
     end
 
 endmodule
