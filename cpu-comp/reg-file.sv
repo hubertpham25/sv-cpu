@@ -1,12 +1,18 @@
-module register_file(
-    # (parameter wr_addr = 5, //bit widths
-                 wr_data = 32;
-    );
-    input logic[wr_addr - 1:0] r1, r2,
-    input logic[wr_addr - 1:0] w1,
-    input logic[wr_data - 1:0] data_wr,
+module REG_FILE #(parameter wr_addr = 5, wr_dataddr = 32)( //<- bit widths as param
+    input logic clk,
     input logic wr_enable,
-    input logic clk
-    
+    input logic[wr_addr-1:0] r1, r2, // register address to read from
+    input logic[wr_addr-1:0] w1, // register address to write to
+    input logic[wr_dataddr-1:0] wr_data, // data to write to register
+    output logic[wr_dataddr-1:0] out_r1, out_r2 // read outputs
 );
+    logic [31:0] register_file [31:0];
+    always_ff @(posedge clk) begin : write
+        if (wr_enable)
+            register_file[w1] <= wr_data;
+    end : write
+    always_comb begin : read
+        out_r1 = register_file[r1];
+        out_r2 = register_file[r2];
+    end : read
 endmodule
