@@ -14,6 +14,26 @@ module ALU_tb;
         instr.a = 2;
         instr.b = 1;
         instr.opcode = packages::ADD; #5;
+        $display("alu result = %d (expected 3)", result); #5;
+
+        instr.a = 2;
+        instr.b = 1;
+        instr.opcode = packages::SUB; #5;
+        $display("alu result = %d (expected 1)", result);
+
+        instr.a = 2;
+        instr.b = 1;
+        instr.opcode = packages::OP_AND; #5;
+        $display("alu result = %d (expected 0)", result); #5
+
+        instr.a = 3;
+        instr.b = 1;
+        instr.opcode = packages::OP_AND; #5;
+        $display("alu result = %d (expected 1)", result);
+
+        instr.a = 2;
+        instr.b = 1;
+        instr.opcode = packages::OP_OR; #5;
         $display("alu result = %d (expected 3)", result);
     end
 endmodule
