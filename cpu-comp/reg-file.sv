@@ -8,11 +8,24 @@ module REG_FILE #(parameter wr_addr = 5, wr_dataddr = 32)( //<- bit widths as pa
 );
     logic [31:0] register_file [31:0];
     always_ff @(posedge clk) begin : write
-        if (wr_enable)
+        if (wr_enable && (w1 != 0)) begin
+            // w1 does not equal to address 0 -> special register
             register_file[w1] <= wr_data;
+        end
     end : write
     always_comb begin : read
-        out_r1 = register_file[r1];
-        out_r2 = register_file[r2];
+        if (r1 == 0) begin
+            out_r1 = 0; 
+        end
+        else begin
+            out_r1 = register_file[r1];
+        end
+        if (r2 == 0) begin
+            out_r2 = 0;
+        end
+        else begin
+            out_r2 = register_file[r2];
+        end
+        
     end : read
 endmodule
