@@ -6,12 +6,25 @@ module immed_gen(
 );
     logic [6:0] opcode;
     assign opcode = instr[6:0];
+    logic [11:0] imm_11_0;
+    logic [12:0] beq_imm;
     always_comb begin
         case (opcode)
-            ADDI_OP:
-            SW_OP: 
-            BEQ_OP: 
-            default: //RTYPE
+            ADDI_OP: begin
+                imm_11_0 = instr[31:20];
+                immed_val = {{20{instr[31]}}, imm_11_0};
+            end
+            SW_OP: begin
+                imm_11_0 = {instr[31:25], instr[11:7]};
+                immed_val = {{20{instr[31]}}, imm_11_0};
+            end
+            BEQ_OP: begin
+                beq_imm = {instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};
+                immed_val = {{19{instr[31]}}, beq_imm};
+            end
+            default: begin
+                immed_val = 0;
+            end
         endcase
         
     end
