@@ -1,5 +1,4 @@
-typedef enum logic[6:0] {ADDI_OP = 7'b0010011, 
-            SW_OP = 7'b0100011, BEQ_OP = 7'b1100011, RTYPE = 7'b0110011} immed_opcode;
+import packages::immed_opcode_t;
 module immed_gen(
     input logic [31:0] instr,
     output logic [31:0] immed_val
