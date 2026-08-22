@@ -1,4 +1,4 @@
-import packages::*;
+import packages::instructions_t;
 module ALU(
     input packages::instructions_t instr,
     output logic [31:0] result,
