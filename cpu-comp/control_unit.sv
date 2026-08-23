@@ -44,6 +44,9 @@ module control_unit(
                 else if (funct3 == 3'h2) begin
                     alu_op = packages::OP_SLT;
                 end
+                else begin //safe option
+                    alu_op = packages::ADD; 
+                end
             end
             packages::ADDI_OP: begin //I-type. Might not be worth renaming and touching other files
                 funct3 = instr[14:12];
@@ -64,6 +67,9 @@ module control_unit(
                 end
                 else if (funct3 = 3'h4) begin //andi
                     alu_op = packages::OP_AND;
+                end
+                else begin
+                    alu_op = packages::ADD;
                 end
             end 
         endcase
