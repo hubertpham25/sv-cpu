@@ -17,12 +17,13 @@ module control_unit(
         funct3 = instr[14:12];
         case (opcode)
             packages::RTYPE: begin
-                mem_to_reg = 0;
+                alu_src = 1;
+                mem_rd = 1;
                 branch = 0;
+                mem_to_reg = 0;
                 mem_wr = 0;
                 reg_wr = 1;
-                mem_rd = 1;
-                alu_src = 1;
+        
                 if (funct3 == 0) begin //funct3 = 0x0
                     funct7 = instr[31:25];
                     if (funct7 == 0) begin // add
@@ -49,29 +50,32 @@ module control_unit(
                 end
             end
             packages::ADDI_OP: begin //I-type. Might not be worth renaming and touching other files
-                funct3 = instr[14:12];
                 alu_src = 0;
                 mem_rd = 0;
                 branch = 0;
-                mem_to_reg = 0
-                mem_wr = 1;
+                mem_to_reg = 0;
+                mem_wr = 0;
                 reg_wr = 1;
+
                 if (funct3 == 3'h0) begin //addi
                     alu_op = packages::ADD;
-                end
-                else if (funct3 = 3'h4) begin //xori
-                    alu_op = packages::OP_XOR;
-                end
-                else if (funct3 = 3'h6) begin //ori
-                    alu_op = packages::OP_OR;
-                end
-                else if (funct3 = 3'h4) begin //andi
-                    alu_op = packages::OP_AND;
                 end
                 else begin
                     alu_op = packages::ADD;
                 end
             end 
+            packages::SW_OP: begin
+                alu_src = 0;
+                mem_rd = 1;
+                branch = 0;
+                mem_to_reg = 1;
+                mem_wr = 1;
+                reg_wr = 1;
+
+                if (funct3 == 3'h2) begin
+                    alu_op = packages::ADD;
+                end
+            end
         endcase
     end
 endmodule
