@@ -18,7 +18,7 @@ module control_unit(
         case (opcode)
             packages::RTYPE: begin
                 alu_src = 1;
-                mem_rd = 1;
+                mem_rd = 0;
                 branch = 0;
                 mem_to_reg = 0;
                 mem_wr = 0;
@@ -36,13 +36,13 @@ module control_unit(
                 else if (funct3 == 3'h4) begin // funct3 = 0x4
                     alu_op = packages::OP_XOR;
                 end
-                else if (funct3 == 3'h6) begin
+                else if (funct3 == 3'h6) begin //0x6
                     alu_op = packages::OP_OR;
                 end
-                else if (funct3 == 3'h7) begin
+                else if (funct3 == 3'h7) begin //0x7
                     alu_op = packages::OP_AND;
                 end
-                else if (funct3 == 3'h2) begin
+                else if (funct3 == 3'h2) begin //0x2
                     alu_op = packages::OP_SLT;
                 end
                 else begin //safe option
@@ -66,15 +66,33 @@ module control_unit(
             end 
             packages::SW_OP: begin
                 alu_src = 0;
+                mem_rd = 0;
+                branch = 0;
+                mem_to_reg = 0;
+                mem_wr = 1;
+                reg_wr = 0;
+
+                alu_op = packages::ADD;
+            end
+            packages::BEQ_OP: begin
+                alu_src = 1;
+                mem_rd = 0;
+                branch = 1;
+                mem_to_reg = 0;
+                mem_wr = 0;
+                reg_wr = 0;
+
+                alu_op = packages::SUB;
+            end
+            packages::LW_OP: begin
+                alu_src = 0;
                 mem_rd = 1;
                 branch = 0;
                 mem_to_reg = 1;
-                mem_wr = 1;
+                mem_wr = 0;
                 reg_wr = 1;
 
-                if (funct3 == 3'h2) begin
-                    alu_op = packages::ADD;
-                end
+                alu_op = packages::ADD;
             end
         endcase
     end
