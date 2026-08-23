@@ -11,6 +11,7 @@ module ALU(
             packages::OP_AND: result = instr.a & instr.b;
             packages::OP_OR: result = instr.a | instr.b;
             packages::OP_XOR: result = (instr.a | instr.b) & ~(instr.a & instr.b);
+            packages::OP_SLT: result = (instr.a < instr.b) ? 1:0;
             default: result = 0;
         endcase
     end
