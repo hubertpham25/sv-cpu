@@ -94,6 +94,16 @@ module control_unit(
 
                 alu_op = packages::ADD;
             end
+            default: begin
+                alu_src = 0;
+                mem_rd = 0;
+                branch = 0;
+                mem_to_reg = 0;
+                mem_wr = 0;
+                reg_wr = 0;
+
+                alu_op = packages::ADD;
+            end
         endcase
     end
 endmodule
