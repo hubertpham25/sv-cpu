@@ -8,9 +8,10 @@ module data_mem(
 );
     logic[31:0] data_mem [63:0];
     always_ff @(posedge clk) begin: data_wr
-        if (mem_wr == 1 && mem_rd == 0) begin
+        if (mem_wr == 1) begin
             data_mem[addr] <= wr_data;
         end
     end: data_wr
-    
+    assign result = data_mem[addr];
+
 endmodule
