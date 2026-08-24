@@ -1,6 +1,6 @@
 module instr_mem_tb;
-    logic [31:0] PC;
-    logic [31:0] instr_word;
+    logic[31:0] PC;
+    logic[31:0] instr_word;
 
     instr_mem dut(
         .PC(PC),
