@@ -15,6 +15,7 @@ module control_unit(
     always_comb begin
         opcode = instr[6:0];
         funct3 = instr[14:12];
+        funct7 = instr[31:25];
         case (opcode)
             packages::RTYPE: begin
                 alu_src = 1;
@@ -25,7 +26,6 @@ module control_unit(
                 reg_wr = 1;
         
                 if (funct3 == 0) begin //funct3 = 0x0
-                    funct7 = instr[31:25];
                     if (funct7 == 0) begin // add
                         alu_op = packages::ADD;
                     end
