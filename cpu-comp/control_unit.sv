@@ -32,6 +32,9 @@ module CONTROL_UNIT(
                     else if (funct7 == 7'h20) begin // sub 0x20
                         alu_op = packages::SUB;
                     end
+                    else begin // just safe else statement
+                        alu_op = packages::ADD;
+                    end
                 end
                 else if (funct3 == 3'h4) begin // funct3 = 0x4
                     alu_op = packages::OP_XOR;
