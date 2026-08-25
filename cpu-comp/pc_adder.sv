@@ -5,5 +5,16 @@ module pc_adder(
     input logic zero_flag,
     output logic[31:0] next_pc
 );
-    
+    logic[31:0] branch_pc;
+    logic[31:0] add_pc;
+    assign branch_pc = curr_pc + imm;
+    assign add_pc = curr_pc + 4;
+    always_comb begin
+        if (branch == 1 && zero_flag == 1) begin
+            next_pc = branch_pc;
+        end
+        else begin
+            next_pc = add_pc;
+        end
+    end
 endmodule
