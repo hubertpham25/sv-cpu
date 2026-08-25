@@ -51,14 +51,14 @@ module CPU;
         .r1(instr),
         .r2(instr),
         .w1(instr),
-        // make the mux behavior
+        .wr_data(mem_to_reg ? alu_result : datamem_result),
         .out_r1(out_r1),
         .out_r2(out_r2)
     );
 
     ALU alu_inst(
         .a(out_r1),
-        // mux behavior for b
+        .b(alu_src ? out_r2 : imm_val),
         .opcode(alu_op)
         .result(alu_result),
         .zero_fg(zero_fg);
@@ -66,7 +66,7 @@ module CPU;
 
     DATA_MEM datamem_inst(
         .addr(result),
-        // wr_data is from the mux behavior from reg file
+        .wr_data(alu_src ? out_r2 : imm_val),
         .clk(clk),
         .mem_rd(mem_rd),
         .mem_wr(mem_wr)
