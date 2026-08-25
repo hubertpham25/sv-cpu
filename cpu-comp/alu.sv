@@ -2,7 +2,7 @@ import packages::*;
 module ALU(
     input logic[31:0] a,
     input logic[31:0] b,
-    input packages::opcode_t opcode
+    input packages::opcode_t opcode,
     output logic [31:0] result,
     output logic zero_fg
 );
