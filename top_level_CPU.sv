@@ -17,11 +17,11 @@ module CPU;
     logic[31:0] out_r1, out_r2;
 
     // ALU output wires
-    logic[31:0] result;
+    logic[31:0] alu_result;
     logic zero_fg; // goes to PC Adder
 
     // Data memory output wires
-    logic[31:0] result;
+    logic[31:0] datamem_result;
 
     // Immediate generator output wire
     logic[31:0] imm_val;
@@ -43,7 +43,7 @@ module CPU;
         .alu_op(alu_op)
     );
 
-    reg_file regfile_inst(
+    REG_FILE regfile_inst(
         .clk(clk),
         .wr_data(reg_wr),
         .r1(instr),
@@ -52,6 +52,28 @@ module CPU;
         // make the mux behavior
         .out_r1(out_r1),
         .out_r2(out_r2)
+    );
+
+    ALU alu_inst(
+        .a(out_r1),
+        // mux behavior for b
+        .opcode(alu_op)
+        .result(alu_result),
+        .zero_fg(zero_fg);
+    );
+
+    data_mem datamem_inst(
+        .addr(result),
+        // wr_data is from the mux behavior from reg file
+        .clk(clk),
+        .mem_rd(mem_rd),
+        .mem_wr(mem_wr)
+        .result(datamem_result)
+    );
+
+    immed_gen immgen_inst(
+        .instr(instr),
+        .imm
     );
 
 
