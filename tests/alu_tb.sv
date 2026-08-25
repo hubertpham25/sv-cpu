@@ -16,28 +16,58 @@ module ALU_tb;
     initial begin
         a = 2;
         b = 1;
-        opcode = packages::ADD; #5;
-        $display("alu result = %d (expected 3)", result); #5;
+        opcode = packages::ADD;
+        #5;
+        $display("alu result = %d (expected 3)", result);
 
         a = 2;
         b = 1;
-        opcode = packages::SUB; #5;
+        opcode = packages::SUB;
+        #5;
         $display("alu result = %d (expected 1)", result);
 
         a = 2;
         b = 1;
-        opcode = packages::OP_AND; #5;
-        $display("alu result = %d (expected 0)", result); #5
+        opcode = packages::OP_AND;
+        #5;
+        $display("alu result = %d (expected 0)", result);
 
         a = 3;
         b = 1;
-        opcode = packages::OP_AND; #5;
+        opcode = packages::OP_AND;
+        #5;
         $display("alu result = %d (expected 1)", result);
 
         a = 2;
         b = 1;
-        opcode = packages::OP_OR; #5;
+        opcode = packages::OP_OR;
+        #5;
         $display("alu result = %d (expected 3)", result);
+
+        a = 5;
+        b = 3;
+        opcode = packages::OP_XOR;
+        #5;
+        $display("alu result = %d (expected 6)", result);
+
+        a = 2;
+        b = 5;
+        opcode = packages::OP_SLT;
+        #5;
+        $display("alu result = %d (expected 1)", result);
+
+        a = 5;
+        b = 2;
+        opcode = packages::OP_SLT;
+        #5;
+        $display("alu result = %d (expected 0)", result);
+
+        a = 3;
+        b = 3;
+        opcode = packages::SUB;
+        #5;
+        $display("alu result = %d, zero_fg = %b (expected 0, 1)", result, zero_fg);
+
         $finish;
     end
 endmodule
