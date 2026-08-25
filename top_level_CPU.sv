@@ -47,10 +47,10 @@ module CPU;
 
     REG_FILE regfile_inst(
         .clk(clk),
-        .wr_data(reg_wr),
-        .r1(instr),
-        .r2(instr),
-        .w1(instr),
+        .wr_enable(reg_wr),
+        .r1(instr[19:15]),
+        .r2(instr[24:20]),
+        .w1(instr[11:7]),
         .wr_data(mem_to_reg ? alu_result : datamem_result),
         .out_r1(out_r1),
         .out_r2(out_r2)
@@ -59,17 +59,17 @@ module CPU;
     ALU alu_inst(
         .a(out_r1),
         .b(alu_src ? out_r2 : imm_val),
-        .opcode(alu_op)
+        .opcode(alu_op),
         .result(alu_result),
         .zero_fg(zero_fg);
     );
 
     DATA_MEM datamem_inst(
-        .addr(result),
-        .wr_data(alu_src ? out_r2 : imm_val),
+        .addr(alu_result),
+        .wr_data(out_r2),
         .clk(clk),
         .mem_rd(mem_rd),
-        .mem_wr(mem_wr)
+        .mem_wr(mem_wr),
         .result(datamem_result)
     );
 
@@ -80,7 +80,7 @@ module CPU;
 
     PC_ADDER pcadder_inst(
         .curr_pc(curr_pc),
-        .imm(imm_val)
+        .imm(imm_val),
         .branch(branch),
         .zero_fg(zero_fg),
         .next_pc(next_pc)
@@ -95,4 +95,4 @@ module CPU;
         .pc(curr_pc),
         .instr_word(instr)
     );
-endmodule;
+endmodule
