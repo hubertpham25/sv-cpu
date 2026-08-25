@@ -12,7 +12,9 @@ module CPU;
     logic mem_to_reg;
     logic branch;
     opcode_t alu_op;
-
+    
+    // instruction memory output: at top ^^^^
+    
     // register file output wires
     logic[31:0] out_r1, out_r2;
 
@@ -82,12 +84,15 @@ module CPU;
         .branch(branch),
         .zero_fg(zero_fg),
         .next_pc(next_pc)
-    )
+    );
 
     PC pc_inst(
         .next_pc(next_pc),
         .curr_pc(curr_pc)
-    )
+    );
 
-
+    INSTR_MEM instrmem_inst(
+        .pc(curr_pc),
+        .instr_word(instr)
+    );
 endmodule;
