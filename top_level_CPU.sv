@@ -1,7 +1,5 @@
 import packages::*;
-module CPU;
-    logic clk;
-
+module CPU(input logic clk);
     // output control unit wires
     logic[31:0] instr; 
     // ^ from instr_memory to control unit, shared between r1,r2 and w1 in register file
@@ -61,7 +59,7 @@ module CPU;
         .b(alu_src ? out_r2 : imm_val),
         .opcode(alu_op),
         .result(alu_result),
-        .zero_fg(zero_fg);
+        .zero_fg(zero_fg)
     );
 
     DATA_MEM datamem_inst(
