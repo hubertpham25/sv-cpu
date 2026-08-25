@@ -6,6 +6,7 @@ module INSTR_MEM(
     logic[5:0] instr_addr;
     assign instr_addr = pc[7:2];
     assign instr_word = instr_memory[instr_addr];
-    
-    $readmemh("program.hex", instr_memory);
+    initial begin
+        $readmemh("program.hex", instr_memory);
+    end
 endmodule
