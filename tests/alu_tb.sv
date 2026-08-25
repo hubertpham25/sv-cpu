@@ -1,39 +1,43 @@
-import packages::*;
+import packages::opcode_t;
 module ALU_tb;
-    packages::instructions_t instr;
+    logic[31:0] a, b;
+    opcode_t opcode;
     logic[31:0] result;
     logic zero_fg;
 
     ALU dut(
-        .instr(instr),
+        .a(a),
+        .b(b),
+        .opcode(opcode),
         .result(result),
         .zero_fg(zero_fg)
     );
 
     initial begin
-        instr.a = 2;
-        instr.b = 1;
-        instr.opcode = packages::ADD; #5;
+        a = 2;
+        b = 1;
+        opcode = packages::ADD; #5;
         $display("alu result = %d (expected 3)", result); #5;
 
-        instr.a = 2;
-        instr.b = 1;
-        instr.opcode = packages::SUB; #5;
+        a = 2;
+        b = 1;
+        opcode = packages::SUB; #5;
         $display("alu result = %d (expected 1)", result);
 
-        instr.a = 2;
-        instr.b = 1;
-        instr.opcode = packages::OP_AND; #5;
+        a = 2;
+        b = 1;
+        opcode = packages::OP_AND; #5;
         $display("alu result = %d (expected 0)", result); #5
 
-        instr.a = 3;
-        instr.b = 1;
-        instr.opcode = packages::OP_AND; #5;
+        a = 3;
+        b = 1;
+        opcode = packages::OP_AND; #5;
         $display("alu result = %d (expected 1)", result);
 
-        instr.a = 2;
-        instr.b = 1;
-        instr.opcode = packages::OP_OR; #5;
+        a = 2;
+        b = 1;
+        opcode = packages::OP_OR; #5;
         $display("alu result = %d (expected 3)", result);
+        $finish;
     end
 endmodule
