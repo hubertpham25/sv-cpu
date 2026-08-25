@@ -49,7 +49,7 @@ module CPU(input logic clk);
         .r1(instr[19:15]),
         .r2(instr[24:20]),
         .w1(instr[11:7]),
-        .wr_data(mem_to_reg ? alu_result : datamem_result),
+        .wr_data(mem_to_reg ? datamem_result : alu_result),
         .out_r1(out_r1),
         .out_r2(out_r2)
     );
@@ -63,7 +63,7 @@ module CPU(input logic clk);
     );
 
     DATA_MEM datamem_inst(
-        .addr(alu_result),
+        .addr(alu_result[7:2]),
         .wr_data(out_r2),
         .clk(clk),
         .mem_rd(mem_rd),
@@ -85,6 +85,7 @@ module CPU(input logic clk);
     );
 
     PC pc_inst(
+        .clk(clk),
         .next_pc(next_pc),
         .curr_pc(curr_pc)
     );
