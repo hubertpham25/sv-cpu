@@ -1,4 +1,4 @@
-module data_mem(
+module DATA_MEM(
     input logic[5:0] addr,
     input logic[31:0] wr_data,
     input logic clk,

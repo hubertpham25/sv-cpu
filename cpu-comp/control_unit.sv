@@ -1,5 +1,5 @@
 import packages::*;
-module control_unit(
+module CONTROL_UNIT(
     input logic[31:0] instr,
     output logic reg_wr, // should it write to a register
     output logic alu_src, // does ALU second operand come from a register (1) or immediate (0)

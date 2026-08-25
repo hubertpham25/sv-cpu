@@ -1,4 +1,4 @@
-module pc(
+module PC(
     input logic clk,
     input logic[31:0] next_pc,
     output logic[31:0] curr_pc

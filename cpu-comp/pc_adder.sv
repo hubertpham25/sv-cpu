@@ -1,4 +1,4 @@
-module pc_adder(
+module PC_ADDER(
     input logic[31:0] curr_pc,
     input logic[31:0] imm,
     input logic branch,
