@@ -32,7 +32,7 @@ module CPU;
     // PC output wire
     logic[31:0] curr_pc;
 
-    control_unit cu_inst(
+    CONTROL_UNIT cu_inst(
         .instr(instr),
         .reg_wr(reg_wr),
         .alu_src(alu_src),
@@ -62,7 +62,7 @@ module CPU;
         .zero_fg(zero_fg);
     );
 
-    data_mem datamem_inst(
+    DATA_MEM datamem_inst(
         .addr(result),
         // wr_data is from the mux behavior from reg file
         .clk(clk),
@@ -71,10 +71,23 @@ module CPU;
         .result(datamem_result)
     );
 
-    immed_gen immgen_inst(
+    IMMED_GEN immgen_inst(
         .instr(instr),
-        .imm
+        .immed_val(imm_val)
     );
+
+    PC_ADDER pcadder_inst(
+        .curr_pc(curr_pc),
+        .imm(imm_val)
+        .branch(branch),
+        .zero_fg(zero_fg),
+        .next_pc(next_pc)
+    )
+
+    PC pc_inst(
+        .next_pc(next_pc),
+        .curr_pc(curr_pc)
+    )
 
 
 endmodule;
