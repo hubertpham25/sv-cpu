@@ -79,4 +79,4 @@ Two end-to-end test programs run the fully integrated CPU:
 
 ## Background
 
-Built as a first project in SystemVerilog and digital design, starting from no prior hardware experience. Developed and debugged interactively over about two and a half weeks.
+Built as my first project in SystemVerilog and digital design, starting from no prior hardware experience. I was not sure about my career path but after taking 18-213 (Intro. to Computer Systems), I wanted to take a deeper dive in to hardware/computer engineering. I find the way these components all work together really fascinating and it almost just feels like magic. The learning process was a true captivator. These processes are so complex yet so simple, the work behind the scenes that allow the CPU to actually execute programs is so bizarre to me. I've learned mostly everything
